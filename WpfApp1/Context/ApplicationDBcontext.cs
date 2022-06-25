@@ -12,5 +12,17 @@ namespace WpfApp1.Context
     {
         public DbSet<Author> Authors { get; set; }
         public DbSet<Poem> Poems { get; set; }
+        public ApplicationDBcontext(DbContextOptions<ApplicationDBcontext> options) : base(options)
+        {
+            //Database.EnsureDeleted();
+            Database.EnsureCreated();
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDBcontext).Assembly);
+            base.OnModelCreating(builder);
+
+        }
+
     }
 }
